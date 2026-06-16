@@ -371,20 +371,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Connected Platform Status */}
-      <section className="bg-bg-surface border border-border-custom rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="space-y-1 text-center md:text-left">
-          <h3 className="text-sm font-bold text-white">Service Health Indicator</h3>
-          <p className="text-text-secondary text-xs">All intelligence pipelines are operating normally.</p>
-        </div>
-        <div className="flex items-center gap-3 bg-bg-primary border border-border-custom px-4 py-2.5 rounded-full">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-success opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-status-success" />
-          </span>
-          <span className="text-text-secondary text-xs font-medium">FastAPI Server Connected</span>
-        </div>
-      </section>
+
     </div>
   )
 }

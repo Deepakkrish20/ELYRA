@@ -21,9 +21,9 @@ export default function SpamAnalyzer() {
         isSpam: data.is_spam,
         confidence: data.confidence,
         message: data.message,
-        spamScore: data.is_spam ? data.confidence : 1 - data.confidence,
-        hamScore: data.is_spam ? 1 - data.confidence : data.confidence,
-        keywordsDetected: ['free', 'money', 'claim', 'urgent', 'winner', 'prize', 'offer'].filter(w => text.toLowerCase().includes(w))
+        spamScore: data.spam_score,
+        hamScore: data.ham_score,
+        keywordsDetected: data.keywords_detected
       })
     } catch (err) {
       console.warn("Backend API unreachable. Falling back to frontend mock simulation.", err)
@@ -81,7 +81,7 @@ export default function SpamAnalyzer() {
             
             <textarea
               className="w-full h-64 bg-bg-primary border border-border-custom rounded-xl p-4 text-text-primary placeholder:text-text-muted focus:border-white focus:outline-none transition-custom text-sm resize-none leading-relaxed"
-              placeholder="Paste email or text snippet here... (e.g. 'CONGRATS! You have been selected as our cash prize winner. Claim your $1000 prize now at this link!')"
+              placeholder="Paste email or text snippet here..."
               value={text}
               onChange={(e) => setText(e.target.value)}
               disabled={analyzing}
@@ -154,38 +154,20 @@ export default function SpamAnalyzer() {
                 </div>
 
                 <div className="space-y-4">
-                  {/* Spam Bar */}
+                  {/* Single Premium Spam Risk Indicator */}
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-xs font-medium">
-                      <span className="text-text-secondary">Spam Confidence</span>
-                      <span className={result.isSpam ? 'text-status-error' : 'text-text-muted'}>
+                      <span className="text-text-secondary">Spam Probability</span>
+                      <span className={result.isSpam ? 'text-status-error font-semibold' : 'text-status-success font-semibold'}>
                         {(result.spamScore * 100).toFixed(0)}%
                       </span>
                     </div>
-                    <div className="w-full bg-bg-primary h-1.5 rounded-full overflow-hidden border border-border-custom">
+                    <div className="w-full bg-bg-primary h-2 rounded-full overflow-hidden border border-border-custom">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${result.spamScore * 100}%` }}
                         transition={{ duration: 0.8, ease: 'easeOut' }}
-                        className={`h-full rounded-full ${result.isSpam ? 'bg-status-error' : 'bg-text-muted'}`}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Ham Bar */}
-                  <div className="space-y-1.5">
-                    <div className="flex justify-between text-xs font-medium">
-                      <span className="text-text-secondary">Ham Confidence</span>
-                      <span className={!result.isSpam ? 'text-status-success' : 'text-text-muted'}>
-                        {(result.hamScore * 100).toFixed(0)}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-bg-primary h-1.5 rounded-full overflow-hidden border border-border-custom">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${result.hamScore * 100}%` }}
-                        transition={{ duration: 0.8, ease: 'easeOut' }}
-                        className={`h-full rounded-full ${!result.isSpam ? 'bg-status-success' : 'bg-text-muted'}`}
+                        className={`h-full rounded-full transition-colors ${result.isSpam ? 'bg-status-error' : 'bg-status-success'}`}
                       />
                     </div>
                   </div>
@@ -224,9 +206,12 @@ export default function SpamAnalyzer() {
             )}
           </div>
 
-          <div className="text-[10px] text-text-muted border-t border-border-custom pt-4 mt-8 flex justify-between">
-            <span>Model: NLP Logistic Regression</span>
-            <span>v1.0.2</span>
+          <div className="text-[10px] text-text-muted border-t border-border-custom pt-4 mt-8 flex justify-between items-center">
+            <span className="flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-status-success animate-pulse" />
+              ELYRA Content Guard active
+            </span>
+            <span>Secure Analysis</span>
           </div>
         </div>
       </div>

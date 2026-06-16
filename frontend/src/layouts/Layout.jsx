@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { ShieldAlert, BookOpen, Film, Menu, X, ArrowRight, ChevronDown } from 'lucide-react'
 import ElyraLogo from '../components/ElyraLogo'
+import { FOOTER_CONFIG } from '../constants/config'
+
 
 export default function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -190,9 +192,11 @@ export default function Layout() {
               <Link to="/">
                 <ElyraLogo className="h-10 w-10" showText={true} showSubtitle={true} textClass="h-5" />
               </Link>
-              <p className="text-text-secondary max-w-sm leading-relaxed">
-                Advanced Content Intelligence. Redefining text metadata extraction, sentiment indexing, and genre synthesis through simple, elegant pipelines.
-              </p>
+              <div className="text-text-muted leading-relaxed">
+                <span className="text-text-secondary font-medium">{FOOTER_CONFIG.creator.attribution}</span>
+                <br />
+                {FOOTER_CONFIG.creator.role}
+              </div>
             </div>
 
             {/* Quick Links */}
@@ -205,24 +209,29 @@ export default function Layout() {
               </ul>
             </div>
 
-            {/* Company / Legal */}
+            {/* Social Links Section */}
             <div className="space-y-3">
-              <h4 className="text-white font-semibold tracking-wider uppercase text-[10px]">Developers</h4>
+              <h4 className="text-white font-semibold tracking-wider uppercase text-[10px]">Connect</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API Reference</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">System Status</a></li>
+                {FOOTER_CONFIG.socialLinks.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.url}
+                      target={link.isExternal ? "_blank" : undefined}
+                      rel={link.isExternal ? "noopener noreferrer" : undefined}
+                      className="hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
 
           <div className="border-t border-border-custom pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p>© {new Date().getFullYear()} ELYRA Platform. All rights reserved.</p>
-            <div className="flex gap-6 text-text-muted">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-colors">Security</a>
-            </div>
+            <p>{FOOTER_CONFIG.copyright}</p>
+            <p className="text-text-muted">{FOOTER_CONFIG.technologyNote}</p>
           </div>
         </div>
       </footer>

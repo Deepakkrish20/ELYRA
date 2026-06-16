@@ -127,7 +127,7 @@ export default function ElyraLogo({ className = 'h-8 w-8', showText = false, sho
           </svg>
           {showSubtitle && (
             <span className="text-[7.5px] tracking-[0.24em] text-text-muted font-bold mt-1.5 uppercase leading-none">
-              Understand beyond words
+              Understand Beyond Words.
             </span>
           )}
         </div>
