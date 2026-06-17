@@ -23,6 +23,6 @@ export const FOOTER_CONFIG = {
       isExternal: false
     }
   ],
-  technologyNote: 'Built with React, FastAPI, NLP & Machine Learning.',
+  technologyNote: 'Built for high performance and visual clarity.',
   copyright: '© 2026 ELYRA. Crafted with passion by Deepak N.'
 };

@@ -7,7 +7,7 @@ export default function NotFound() {
       <HelpCircle className="h-12 w-12 text-text-muted mb-2 animate-pulse" />
       <h1 className="text-4xl font-extrabold tracking-tight text-white">404 - Not Found</h1>
       <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
-        The pipeline page you are requesting could not be located in our routing indexes.
+        The page you are requesting could not be located in our routing indexes.
       </p>
       <Link
         to="/"

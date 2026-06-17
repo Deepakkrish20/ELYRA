@@ -141,12 +141,12 @@ export default function MovieAnalyzer() {
   const BadgeIcon = badge ? badge.icon : null
 
   return (
-    <div className="max-w-[1280px] mx-auto px-6 py-12 md:py-20 space-y-12 animate-fade-in">
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 md:py-20 space-y-8 md:space-y-12 animate-fade-in">
       {/* Header */}
       <div className="space-y-3 max-w-2xl">
         <div className="flex items-center gap-2 text-text-secondary">
           <Film className="h-5 w-5 text-white" />
-          <span className="text-xs uppercase tracking-widest font-bold">Cinema Pipeline</span>
+          <span className="text-xs uppercase tracking-widest font-bold">Cinema Engine</span>
         </div>
         <h1 className="text-3xl md:text-[48px] font-extrabold tracking-tight text-white leading-tight">
           Movie Content Analyzer
@@ -156,9 +156,9 @@ export default function MovieAnalyzer() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8 items-start">
         {/* Input Card */}
-        <div className="lg:col-span-3 bg-bg-surface border border-border-custom rounded-2xl p-6 md:p-8 space-y-6">
+        <div className="lg:col-span-3 bg-bg-surface border border-border-custom rounded-2xl p-4 sm:p-6 md:p-8 space-y-6">
           <form onSubmit={handleAnalyze} className="space-y-5">
             <div className="space-y-2">
               <label className="text-xs uppercase tracking-wider font-bold text-text-secondary">
@@ -239,7 +239,7 @@ export default function MovieAnalyzer() {
         </div>
 
         {/* Results Panel */}
-        <div className="lg:col-span-2 bg-bg-surface border border-border-custom rounded-2xl p-6 md:p-8 flex flex-col justify-between min-h-[350px]">
+        <div className="lg:col-span-2 bg-bg-surface border border-border-custom rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col justify-between min-h-[300px] md:min-h-[350px]">
           <div>
             <h3 className="text-xs uppercase tracking-wider font-bold text-text-secondary mb-6 pb-3 border-b border-border-custom">
               Analysis Results
@@ -308,12 +308,12 @@ export default function MovieAnalyzer() {
                     <AlertCircle className="h-3.5 w-3.5 text-text-muted" />
                     <span>Content Advisory</span>
                   </span>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                     {Object.entries(result.advisories).map(([key, value]) => (
-                      <div key={key} className="bg-bg-primary border border-border-custom p-3 rounded-xl text-center">
-                        <span className="block text-[9px] uppercase tracking-wider text-text-muted mb-1">{key}</span>
+                      <div key={key} className="bg-bg-primary border border-border-custom p-2 sm:p-3 rounded-xl text-center">
+                        <span className="block text-[8px] sm:text-[9px] uppercase tracking-wider text-text-muted mb-1">{key}</span>
                         <span
-                          className={`text-xs font-bold ${
+                          className={`text-[10px] sm:text-xs font-bold ${
                             value === 'None'
                               ? 'text-text-muted'
                               : value === 'Low'
@@ -359,14 +359,14 @@ export default function MovieAnalyzer() {
               <div className="flex flex-col items-center justify-center py-16 text-center space-y-3">
                 <Film className="h-8 w-8 text-text-muted" />
                 <p className="text-xs text-text-secondary">
-                  Search for a movie title and run the watchability pipeline to yield content analysis.
+                  Search for a movie title and run the watchability check to yield content analysis.
                 </p>
               </div>
             )}
           </div>
 
           <div className="text-[10px] text-text-muted border-t border-border-custom pt-4 mt-8 flex justify-between">
-            <span>Model: Film Genre Synthesizer</span>
+            <span>Secure Analysis</span>
             <span>v3.0.0</span>
           </div>
         </div>

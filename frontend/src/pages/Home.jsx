@@ -1,12 +1,61 @@
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ShieldAlert, BookOpen, Film, ArrowRight, Activity, Zap, Cpu, Lock } from 'lucide-react'
 
 export default function Home() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [isHovering, setIsHovering] = useState(false)
+  const heroRef = useRef(null)
+
+  const handleMouseMove = (e) => {
+    if (!heroRef.current) return
+    const rect = heroRef.current.getBoundingClientRect()
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+  }
+
+  // Stable pseudo-random configurations for embers to avoid SSR mismatches
+  const embers = Array.from({ length: 22 }).map((_, i) => {
+    const s = (i * 9301 + 49297) % 233280
+    const x = s % 100
+    const delay = (s % 10) * 1.2
+    const duration = 8 + (s % 7)
+    const size = 1.5 + (s % 3)
+    return { id: i, x, delay, duration, size }
+  })
+
+  // Staggered letters list for typewriter text effect, preserving specific word styles
+  const titleChars = [
+    ...Array.from("Unveil").map(char => ({ char, className: "text-orange-500 font-extrabold" })),
+    ...Array.from(" the structure and ").map(char => ({ char, className: "text-white" })),
+    ...Array.from("sentiment").map(char => ({ char, className: "text-rose-400 font-extrabold" })),
+    ...Array.from(" in your text.").map(char => ({ char, className: "text-white" }))
+  ]
+
+  const [visibleLength, setVisibleLength] = useState(0)
+
+  // Infinite typewriter loop effect (types out, waits 3s, resets and repeats)
+  useEffect(() => {
+    let timer
+    if (visibleLength < titleChars.length) {
+      timer = setTimeout(() => {
+        setVisibleLength(prev => prev + 1)
+      }, 55) // 55ms per character typing speed
+    } else {
+      timer = setTimeout(() => {
+        setVisibleLength(0)
+      }, 3000) // Stay complete for 3 seconds
+    }
+    return () => clearTimeout(timer)
+  }, [visibleLength, titleChars.length])
+
   const tools = [
     {
       title: 'Spam Analyzer',
-      description: 'Analyze emails, SMS, and chat messages for potential spam, phishing, and promotional links using NLP classification.',
+      description: 'Analyze emails, SMS, and chat messages for potential spam, phishing, and promotional links.',
       path: '/spam',
       icon: ShieldAlert,
       tag: 'Security',
@@ -40,7 +89,7 @@ export default function Home() {
     },
     {
       title: 'Local Privacy & Security',
-      description: 'Your inputs are parsed and processed securely. No text details are persisted beyond the analysis pipeline.',
+      description: 'Your inputs are parsed and processed securely. No text details are persisted beyond the active session.',
       icon: Lock,
     },
   ]
@@ -54,7 +103,7 @@ export default function Home() {
     {
       step: '02',
       title: 'AI Analysis',
-      description: 'Our backend processes the content using custom pre-trained classification models.',
+      description: 'Our backend processes the content securely to verify watchability, emotions, or spam keywords.',
     },
     {
       step: '03',
@@ -80,10 +129,121 @@ export default function Home() {
     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
   }
 
+
+
   return (
-    <div className="max-w-[1280px] mx-auto px-6 py-12 space-y-24 md:space-y-36">
+    <div className="w-full relative overflow-hidden bg-bg-primary">
+      {/* Dynamic line & background animations */}
+      <style>{`
+        @keyframes blob-orbit-1 {
+          0%, 100% { transform: translate(-20%, -15%) scale(1); }
+          33% { transform: translate(15%, 20%) scale(1.15); }
+          66% { transform: translate(-10%, 25%) scale(0.9); }
+        }
+        @keyframes blob-orbit-2 {
+          0%, 100% { transform: translate(20%, 25%) scale(1.1); }
+          50% { transform: translate(-15%, -10%) scale(0.95); }
+        }
+        @keyframes blob-orbit-3 {
+          0%, 100% { transform: translate(5%, -20%) scale(0.9); }
+          50% { transform: translate(-5%, 20%) scale(1.2); }
+        }
+        @keyframes floating-ember {
+          0% { transform: translateY(100px) scale(0); opacity: 0; }
+          20% { opacity: 0.6; }
+          80% { opacity: 0.6; }
+          100% { transform: translateY(-400px) scale(1); opacity: 0; }
+        }
+        @keyframes border-laser {
+          0% { left: -300px; }
+          100% { left: 100%; }
+        }
+      `}</style>
+
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 md:py-16 space-y-16 md:space-y-32 relative z-20">
       {/* 1. Hero Section */}
-      <section className="relative pt-12 md:pt-20 text-center space-y-8 flex flex-col items-center">
+      <section 
+        ref={heroRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        className="relative pt-12 md:pt-20 text-center space-y-8 flex flex-col items-center overflow-hidden w-full rounded-3xl"
+      >
+        {/* Floating Aura Blobs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <div 
+            className="absolute top-[10%] left-[15%] w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[110px]"
+            style={{ animation: 'blob-orbit-1 25s infinite ease-in-out' }}
+          />
+          <div 
+            className="absolute top-[20%] right-[15%] w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px]"
+            style={{ animation: 'blob-orbit-2 30s infinite ease-in-out' }}
+          />
+          <div 
+            className="absolute bottom-[5%] left-[35%] w-[400px] h-[400px] bg-pink-600/8 rounded-full blur-[100px]"
+            style={{ animation: 'blob-orbit-3 22s infinite ease-in-out' }}
+          />
+        </div>
+
+        {/* Ambient grid system */}
+        <div 
+          className="absolute inset-0 opacity-[0.14] pointer-events-none z-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+            `,
+            backgroundSize: '70px 70px',
+            backgroundPosition: 'center top',
+            maskImage: 'radial-gradient(circle at center, black 40%, transparent 85%)',
+            WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 85%)'
+          }}
+        />
+
+        {/* Mouse interactive glowing grid overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(168, 85, 247, 0.3) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(168, 85, 247, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '70px 70px',
+            backgroundPosition: 'center top',
+            maskImage: `radial-gradient(280px circle at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 100%)`,
+            WebkitMaskImage: `radial-gradient(280px circle at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 100%)`,
+            opacity: isHovering ? 1 : 0,
+            transition: 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+          }}
+        />
+
+        {/* Cursor spotlight soft highlight */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background: `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, rgba(192, 132, 252, 0.06), transparent 80%)`,
+            opacity: isHovering ? 1 : 0,
+            transition: 'opacity 0.5s ease'
+          }}
+        />
+
+        {/* Floating Cybernetic Embers */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          {embers.map((emb) => (
+            <div
+              key={emb.id}
+              className="absolute bottom-0 bg-purple-400 rounded-full opacity-60 blur-[0.5px]"
+              style={{
+                left: `${emb.x}%`,
+                width: `${emb.size}px`,
+                height: `${emb.size}px`,
+                animation: `floating-ember ${emb.duration}s infinite linear`,
+                animationDelay: `${emb.delay}s`
+              }}
+            />
+          ))}
+        </div>
+
         {/* Ambient background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
@@ -91,7 +251,7 @@ export default function Home() {
         <div
           className="absolute top-[104px] md:top-[152px] left-[calc(50%-2rem)] md:left-[calc(50%-2.6rem)] -translate-x-1/2 w-[800px] h-[800px] blur-[40px] pointer-events-none"
           style={{
-            background: 'radial-gradient(circle at top, rgba(255, 255, 255, 0.06) 0%, rgba(192, 132, 252, 0.03) 20%, rgba(192, 132, 252, 0.005) 45%, transparent 70%)'
+            background: 'radial-gradient(circle at top, rgba(255, 255, 255, 0.02) 0%, rgba(192, 132, 252, 0.01) 20%, transparent 60%)'
           }}
         />
 
@@ -99,7 +259,7 @@ export default function Home() {
         <div
           className="absolute top-[104px] md:top-[152px] left-[calc(50%-2rem)] md:left-[calc(50%-2.6rem)] -translate-x-1/2 w-[240px] h-[480px] blur-[25px] pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at top, rgba(255, 255, 255, 0.10) 0%, rgba(192, 132, 252, 0.04) 25%, transparent 70%)'
+            background: 'radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04) 0%, rgba(192, 132, 252, 0.01) 25%, transparent 60%)'
           }}
         />
 
@@ -113,7 +273,7 @@ export default function Home() {
           {/* Symbol Mark SVG */}
           <svg
             viewBox="0 0 100 100"
-            className="h-28 w-28 md:h-36 md:w-36 drop-shadow-[0_0_35px_rgba(192,132,252,0.12)]"
+            className="h-28 w-28 md:h-36 md:w-36 drop-shadow-[0_0_12px_rgba(192,132,252,0.02)]"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -142,7 +302,7 @@ export default function Home() {
               </linearGradient>
             </defs>
 
-            <circle cx="22" cy="50" r="18" fill="url(#spotlightGlowLarge)" opacity="0.65" />
+            <circle cx="22" cy="50" r="18" fill="url(#spotlightGlowLarge)" opacity="0.1" />
             <path
               d="M 64,15 C 32,15 16,28 16,50 C 16,72 32,85 64,85 V 83 C 34,83 28,70 28,50 C 28,30 34,17 64,17 Z"
               fill="url(#silverSpineGradientLarge)"
@@ -151,7 +311,7 @@ export default function Home() {
               d="M 10,60 C 20,52 20,44 26,44 C 34,44 44,53 52,53 C 60,53 64,48 68,44 C 64,47 52,56 44,56 C 36,56 26,48 10,60 Z"
               fill="url(#purpleWaveGradientLarge)"
             />
-            <circle cx="22" cy="50" r="8" fill="url(#spotlightGlowLarge)" opacity="0.95" />
+            <circle cx="22" cy="50" r="8" fill="url(#spotlightGlowLarge)" opacity="0.2" />
             <path
               d="M 68,27 Q 68,36 60,36 Q 68,36 68,45 Q 68,36 76,36 Q 68,36 68,27 Z"
               fill="url(#purpleWaveGradientLarge)"
@@ -228,14 +388,30 @@ export default function Home() {
           <span>All systems fully operational</span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl md:text-[64px] leading-tight font-extrabold tracking-tight text-white max-w-4xl mx-auto"
+        <h1
+          className="text-3xl sm:text-4xl md:text-[64px] leading-tight font-extrabold tracking-tight max-w-4xl mx-auto"
         >
-          Unveil the structure and sentiment in your text.
-        </motion.h1>
+          {titleChars.map((item, idx) => (
+            <span
+              key={idx}
+              className={item.className}
+              style={{
+                opacity: idx < visibleLength ? 1 : 0,
+                transition: 'opacity 0.04s ease-in-out',
+                display: 'inline'
+              }}
+            >
+              {item.char}
+            </span>
+          ))}
+          {/* Subtle cursor line indicator */}
+          <span 
+            className="inline-block w-[3px] h-[32px] md:h-[52px] bg-purple-400 ml-1.5 align-middle animate-pulse"
+            style={{
+              opacity: visibleLength < titleChars.length ? 1 : 0.45
+            }}
+          />
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -243,7 +419,7 @@ export default function Home() {
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-base md:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed"
         >
-          ELYRA is a minimal, premium Content Intelligence platform offering modular pipelines to decode, categorize, and gain deep metadata insights.
+          ELYRA is a minimal, premium Content Intelligence platform offering modular tools to decode, categorize, and gain deep metadata insights.
         </motion.p>
 
         <motion.div
@@ -256,7 +432,7 @@ export default function Home() {
             href="#pipelines"
             className="w-full sm:w-auto px-6 py-3 bg-white text-bg-primary rounded-full font-semibold text-sm hover:bg-white/90 active:scale-95 transition-custom text-center"
           >
-            Explore Pipelines
+            Explore Tools
           </a>
           <Link
             to="/spam"
@@ -267,12 +443,24 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Horizontal divider with sliding laser pulse */}
+      <div className="w-full relative h-[1px] bg-white/[0.06] overflow-hidden my-8 md:my-16">
+        <div 
+          className="absolute inset-y-0 w-[300px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-40"
+          style={{
+            left: '-300px',
+            animation: 'border-laser 8s infinite linear',
+            boxShadow: '0 0 10px rgba(168, 85, 247, 0.3)'
+          }}
+        />
+      </div>
+
       {/* 2. Features Grid */}
       <section id="pipelines" className="space-y-12">
         <div className="text-center md:text-left space-y-2">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">Analysis Pipelines</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">Analysis Tools</h2>
           <p className="text-text-secondary text-sm max-w-lg leading-relaxed">
-            Select one of our specialized models below to extract clean visual metadata from raw text datasets.
+            Select one of our specialized tools below to extract clean visual metadata from raw text datasets.
           </p>
         </div>
 
@@ -360,7 +548,7 @@ export default function Home() {
       <section className="space-y-16">
         <div className="text-center space-y-2">
           <span className="text-[10px] uppercase font-bold tracking-widest text-text-muted">How it works</span>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">The Analysis Pipeline</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">The Analysis Workflow</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
@@ -389,6 +577,7 @@ export default function Home() {
 
 
     </div>
+  </div>
   )
 }
 

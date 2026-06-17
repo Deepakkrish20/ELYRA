@@ -50,13 +50,20 @@ def test_analyze_spam_ham():
     assert "safe" in data["message"]
 
 def test_analyze_poem():
-    response = client.post("/api/poem/analyze", json={"text": "Two roads diverged..."})
+    response = client.post("/api/poem/analyze", json={"text": "Two roads diverged in a yellow wood, and sorry I could not travel both..."})
     assert response.status_code == 200
     data = response.json()
     assert "emotions" in data
-    assert "morals" in data
+    assert "moral" in data
+    assert "meaning" in data
+    assert "intention" in data
+    assert "suitable_age_group" in data
+    assert "real_life_example" in data
+    assert "suggested_poems" in data
     assert "poetic_devices" in data
     assert data["emotions"]["Nostalgia"] == 0.84
+    assert data["intention"] == "Choices"
+    assert data["suitable_age_group"] == "Teens & Adults"
 
 def test_analyze_movie():
     # Test known movie in the database

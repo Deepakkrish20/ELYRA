@@ -53,12 +53,12 @@ export default function SpamAnalyzer() {
   }
 
   return (
-    <div className="max-w-[1280px] mx-auto px-6 py-12 md:py-20 space-y-12 animate-fade-in">
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 md:py-20 space-y-8 md:space-y-12 animate-fade-in">
       {/* Header */}
       <div className="space-y-3 max-w-2xl">
         <div className="flex items-center gap-2 text-text-secondary">
           <ShieldAlert className="h-5 w-5 text-white" />
-          <span className="text-xs uppercase tracking-widest font-bold">Security Pipeline</span>
+          <span className="text-xs uppercase tracking-widest font-bold">Security Engine</span>
         </div>
         <h1 className="text-3xl md:text-[48px] font-extrabold tracking-tight text-white leading-tight">
           Spam Analyzer
@@ -68,9 +68,9 @@ export default function SpamAnalyzer() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8 items-start">
         {/* Input Card */}
-        <div className="lg:col-span-3 bg-bg-surface border border-border-custom rounded-2xl p-6 md:p-8 space-y-6">
+        <div className="lg:col-span-3 bg-bg-surface border border-border-custom rounded-2xl p-4 sm:p-6 md:p-8 space-y-6">
           <form onSubmit={handleAnalyze} className="space-y-4">
             <div className="flex items-center justify-between">
               <label className="text-xs uppercase tracking-wider font-bold text-text-secondary">
@@ -80,7 +80,7 @@ export default function SpamAnalyzer() {
             </div>
             
             <textarea
-              className="w-full h-64 bg-bg-primary border border-border-custom rounded-xl p-4 text-text-primary placeholder:text-text-muted focus:border-white focus:outline-none transition-custom text-sm resize-none leading-relaxed"
+              className="w-full h-48 sm:h-64 bg-bg-primary border border-border-custom rounded-xl p-4 text-text-primary placeholder:text-text-muted focus:border-white focus:outline-none transition-custom text-sm resize-none leading-relaxed"
               placeholder="Paste email or text snippet here..."
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -119,7 +119,7 @@ export default function SpamAnalyzer() {
         </div>
 
         {/* Results Panel */}
-        <div className="lg:col-span-2 bg-bg-surface border border-border-custom rounded-2xl p-6 md:p-8 flex flex-col justify-between min-h-[350px]">
+        <div className="lg:col-span-2 bg-bg-surface border border-border-custom rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col justify-between min-h-[300px] md:min-h-[350px]">
           <div>
             <h3 className="text-xs uppercase tracking-wider font-bold text-text-secondary mb-6 pb-3 border-b border-border-custom">
               Analysis Summary
@@ -184,7 +184,7 @@ export default function SpamAnalyzer() {
               <div className="flex flex-col items-center justify-center py-16 text-center space-y-3">
                 <ShieldAlert className="h-8 w-8 text-text-muted" />
                 <p className="text-xs text-text-secondary">
-                  Provide text and run analysis pipeline to yield predictions.
+                  Provide text and run analysis to yield predictions.
                 </p>
               </div>
             )}

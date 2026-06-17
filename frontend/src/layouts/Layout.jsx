@@ -100,7 +100,7 @@ export default function Layout() {
             {dropdownOpen && (
               <div className="absolute right-0 mt-2.5 w-60 bg-bg-surface border border-border-custom rounded-2xl p-2 shadow-2xl animate-fade-in">
                 <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-text-muted">
-                  Choose Pipeline
+                  Choose Tool
                 </div>
                 <div className="space-y-0.5">
                   {navItems.slice(1).map((item) => {
@@ -201,7 +201,7 @@ export default function Layout() {
 
             {/* Quick Links */}
             <div className="space-y-3">
-              <h4 className="text-white font-semibold tracking-wider uppercase text-[10px]">Pipelines</h4>
+              <h4 className="text-white font-semibold tracking-wider uppercase text-[10px]">Analyzers</h4>
               <ul className="space-y-2">
                 <li><Link to="/spam" className="hover:text-white transition-colors">Spam Analyzer</Link></li>
                 <li><Link to="/poem" className="hover:text-white transition-colors">Poem Analyzer</Link></li>
