@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { ShieldAlert, BookOpen, Film, ArrowRight, Activity, Zap, Cpu, Lock } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ShieldAlert, BookOpen, Film, ArrowRight, Activity, Zap, Cpu, Lock, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function Home() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -29,10 +29,10 @@ export default function Home() {
 
   // Staggered letters list for typewriter text effect, preserving specific word styles
   const titleChars = [
-    ...Array.from("Unveil").map(char => ({ char, className: "text-orange-500 font-extrabold" })),
-    ...Array.from(" the structure and ").map(char => ({ char, className: "text-white" })),
-    ...Array.from("sentiment").map(char => ({ char, className: "text-rose-400 font-extrabold" })),
-    ...Array.from(" in your text.").map(char => ({ char, className: "text-white" }))
+    ...Array.from("Unveil").map(char => ({ char, className: "text-orange-500 font-extrabold", style: {} })),
+    ...Array.from(" the structure and ").map(char => ({ char, className: "", style: { color: "#ffffff" } })),
+    ...Array.from("sentiment").map(char => ({ char, className: "text-rose-400 font-extrabold", style: {} })),
+    ...Array.from(" in your text.").map(char => ({ char, className: "", style: { color: "#ffffff" } }))
   ]
 
   const [visibleLength, setVisibleLength] = useState(0)
@@ -51,6 +51,56 @@ export default function Home() {
     }
     return () => clearTimeout(timer)
   }, [visibleLength, titleChars.length])
+
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [direction, setDirection] = useState(1)
+
+  const handleNextSlide = () => {
+    setDirection(1)
+    setCurrentSlide((prev) => (prev + 1) % tools.length)
+  }
+
+  const handlePrevSlide = () => {
+    setDirection(-1)
+    setCurrentSlide((prev) => (prev - 1 + tools.length) % tools.length)
+  }
+
+  const handleDragEnd = (event, info) => {
+    const swipeThreshold = 50
+    if (info.offset.x < -swipeThreshold) {
+      handleNextSlide()
+    } else if (info.offset.x > swipeThreshold) {
+      handlePrevSlide()
+    }
+  }
+
+  const slideVariants = {
+    enter: (dir) => ({
+      x: dir > 0 ? 160 : -160,
+      opacity: 0,
+      scale: 0.95
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.25 },
+        scale: { duration: 0.3 }
+      }
+    },
+    exit: (dir) => ({
+      x: dir > 0 ? -160 : 160,
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.25 },
+        scale: { duration: 0.3 }
+      }
+    })
+  }
 
   const tools = [
     {
@@ -244,6 +294,7 @@ export default function Home() {
           ))}
         </div>
 
+
         {/* Ambient background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
@@ -398,7 +449,8 @@ export default function Home() {
               style={{
                 opacity: idx < visibleLength ? 1 : 0,
                 transition: 'opacity 0.04s ease-in-out',
-                display: 'inline'
+                display: 'inline',
+                ...item.style
               }}
             >
               {item.char}
@@ -446,11 +498,11 @@ export default function Home() {
       {/* Horizontal divider with sliding laser pulse */}
       <div className="w-full relative h-[1px] bg-white/[0.06] overflow-hidden my-8 md:my-16">
         <div 
-          className="absolute inset-y-0 w-[300px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-40"
+          className="absolute inset-y-0 w-[300px] bg-gradient-to-r from-transparent via-white to-transparent opacity-40"
           style={{
             left: '-300px',
             animation: 'border-laser 8s infinite linear',
-            boxShadow: '0 0 10px rgba(168, 85, 247, 0.3)'
+            boxShadow: '0 0 10px rgba(255, 255, 255, 0.2)'
           }}
         />
       </div>
@@ -464,51 +516,119 @@ export default function Home() {
           </p>
         </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {tools.map((tool, idx) => {
-            const Icon = tool.icon
-            return (
-              <motion.div
-                key={idx}
-                variants={itemVariants}
-                className="bg-bg-surface hover:bg-bg-elevated border border-border-custom hover:border-border-custom-hover rounded-2xl p-8 flex flex-col justify-between h-full group hover:-translate-y-1 transition-custom shadow-xl relative overflow-hidden"
-              >
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div className="p-3 bg-bg-primary border border-border-custom rounded-xl group-hover:border-white/20 transition-custom">
-                      <Icon className="h-6 w-6 text-white" />
-                    </div>
-                    <span className="text-[10px] tracking-widest uppercase font-bold text-text-muted px-2.5 py-1 bg-bg-primary border border-border-custom rounded-full">
-                      {tool.tag}
+        <div className="relative w-full overflow-hidden px-4 md:px-8 py-4 z-20">
+          <div className="max-w-6xl mx-auto flex items-center justify-between gap-4 md:gap-8">
+            
+            {/* Static Left Navigation Button */}
+            <button 
+              onClick={handlePrevSlide}
+              className="hidden md:flex items-center justify-center p-4 bg-bg-surface hover:bg-bg-elevated border border-border-custom hover:border-white/20 text-text-secondary hover:text-white rounded-xl transition-all duration-300 active:scale-95 shadow-md cursor-pointer shrink-0"
+              aria-label="Previous Slide"
+            >
+              <ChevronLeft className="h-8 w-8" />
+            </button>
+
+            {/* Slide Container wrapper for Drag Gesture */}
+            <div className="flex-1 overflow-hidden min-h-[380px] md:min-h-[440px]">
+              <AnimatePresence initial={false} custom={direction} mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  dragMomentum={false}
+                  dragDirectionLock
+                  onDragEnd={handleDragEnd}
+                  className="w-full bg-bg-surface border border-border-custom hover:border-border-custom-hover rounded-3xl p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 relative cursor-grab active:cursor-grabbing select-none touch-pan-y overflow-hidden shadow-2xl"
+                >
+                  {/* Left Column: Details */}
+                  <div className="space-y-6 text-left flex-1">
+                    <span className="inline-block text-[10px] tracking-widest uppercase font-extrabold text-white px-3 py-1 bg-white/5 border border-white/10 rounded-full">
+                      {tools[currentSlide].tag}
                     </span>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-bold text-white group-hover:text-white transition-colors">
-                      {tool.title}
+                    <h3 className="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight">
+                      {tools[currentSlide].title}
                     </h3>
-                    <p className="text-text-secondary leading-relaxed text-sm">
-                      {tool.description}
+                    <p className="text-text-secondary leading-relaxed text-sm md:text-base max-w-xl">
+                      {tools[currentSlide].description}
                     </p>
+                    <div className="pt-4">
+                      <Link
+                        to={tools[currentSlide].path}
+                        className="inline-flex items-center gap-2 py-3 px-6 bg-white hover:bg-white/90 text-bg-primary font-bold rounded-md text-xs tracking-tight transition-custom shadow-lg hover:-translate-y-0.5 active:scale-95"
+                      >
+                        Open Analyzer <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className="pt-8">
-                  <Link
-                    to={tool.path}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-bg-primary hover:bg-white hover:text-bg-primary border border-border-custom hover:border-white text-text-primary rounded-xl text-xs font-semibold tracking-tight transition-custom"
-                  >
-                    Open Analyzer <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-            )
-          })}
-        </motion.div>
+
+                  {/* Right Column: Giant glowing graphic/icon representation */}
+                  <div className="relative flex items-center justify-center w-full md:w-auto mt-6 md:mt-0 pointer-events-none">
+                    <div className="absolute inset-0 bg-white/5 rounded-full blur-[60px]" />
+                    <div className="relative p-8 md:p-12 bg-bg-primary/50 border border-border-custom rounded-3xl text-white shadow-inner">
+                      {(() => {
+                        const Icon = tools[currentSlide].icon;
+                        return <Icon className="h-20 w-20 md:h-28 md:w-28 drop-shadow-[0_0_25px_rgba(255,255,255,0.12)]" />;
+                      })()}
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Static Right Navigation Button */}
+            <button 
+              onClick={handleNextSlide}
+              className="hidden md:flex items-center justify-center p-4 bg-bg-surface hover:bg-bg-elevated border border-border-custom hover:border-white/20 text-text-secondary hover:text-white rounded-xl transition-all duration-300 active:scale-95 shadow-md cursor-pointer shrink-0"
+              aria-label="Next Slide"
+            >
+              <ChevronRight className="h-8 w-8" />
+            </button>
+
+          </div>
+
+          {/* Indicator dots & Mobile Navigation Controls */}
+          <div className="flex justify-center items-center gap-4 mt-6">
+            <button 
+              onClick={handlePrevSlide}
+              className="flex md:hidden items-center justify-center p-2.5 bg-bg-surface border border-border-custom text-text-secondary rounded-lg active:scale-95 cursor-pointer"
+              aria-label="Previous Slide"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+
+            <div className="flex justify-center items-center gap-2">
+              {tools.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setDirection(idx > currentSlide ? 1 : -1)
+                    setCurrentSlide(idx)
+                  }}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    idx === currentSlide 
+                      ? 'w-6 bg-white shadow-[0_0_8px_rgba(255,255,255,0.4)]' 
+                      : 'w-1.5 bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+
+            <button 
+              onClick={handleNextSlide}
+              className="flex md:hidden items-center justify-center p-2.5 bg-bg-surface border border-border-custom text-text-secondary rounded-lg active:scale-95 cursor-pointer"
+              aria-label="Next Slide"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
       </section>
 
       {/* 3. Why ELYRA Section */}
