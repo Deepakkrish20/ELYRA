@@ -1,5 +1,78 @@
 {
-  "total_spam_messages": 0,
+  "total_spam_messages": 6,
   "total_ham_messages": 0,
-  "keyword_counts": {}
+  "keyword_counts": {
+    "otp": {
+      "spam_count": 4,
+      "ham_count": 0
+    },
+    "share": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "now": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "please": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "password": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "us": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "time": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "verify": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "send": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "one": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "enter": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "verification": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "code": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "provide": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "identity": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "confirm": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "account": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "needs": {
+      "spam_count": 1,
+      "ham_count": 0
+    }
+  }
 }

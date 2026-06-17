@@ -152,9 +152,21 @@ def test_analyze_movie_theri():
     assert any(g["name"] == "Action" for g in data["genres"])
     assert any(g["name"] == "Thriller" for g in data["genres"])
     assert "157 mins" in data["runtime_estimate"] or "158 mins" in data["runtime_estimate"]
-
-
-
-
-
-
+def test_otp_phishing_classified_as_spam():
+    """OTP solicitation messages should always be classified as spam."""
+    otp_phishing_messages = [
+        "share your otp",
+        "Please share your OTP now",
+        "Send us your one-time password to verify",
+        "Enter your verification code here",
+        "Provide your OTP to confirm your identity",
+        "Your account needs verification. Send your OTP.",
+    ]
+    for msg in otp_phishing_messages:
+        response = client.post("/api/spam/analyze", json={"text": msg})
+        assert response.status_code == 200
+        data = response.json()
+        assert data["is_spam"] is True, (
+            f"Expected SPAM but got HAM for: '{msg}' "
+            f"(spam_score={data.get('spam_score')}, confidence={data.get('confidence')})"
+        )

@@ -5,9 +5,9 @@ import json
 import csv
 
 
-# Prior probabilities
-P_SPAM_PRIOR = 0.15
-P_HAM_PRIOR = 0.85
+# Prior probabilities — adjusted to reflect real-world SMS spam prevalence (~13%)
+P_SPAM_PRIOR = 0.13
+P_HAM_PRIOR = 0.87
 
 # Curated conditional probabilities P(word | Spam) and P(word | Ham)
 # compiled from standard email and SMS spam corpuses.
@@ -91,6 +91,16 @@ VOCAB_PROBS = {
     "now": (0.120, 0.025),
     "text": (0.120, 0.010),
     "stop": (0.150, 0.002),
+
+    # OTP / verification phishing keywords
+    "otp": (0.180, 0.0001),
+    "share": (0.095, 0.003),
+    "code": (0.075, 0.004),
+    "verification": (0.080, 0.0005),
+    "passcode": (0.085, 0.0001),
+    "pin": (0.060, 0.003),
+    "credential": (0.070, 0.0001),
+    "credentials": (0.070, 0.0001),
     
     # Standard ham words (negative weight for spam)
     "meeting": (0.0001, 0.018),
@@ -119,11 +129,251 @@ VOCAB_PROBS = {
     "know": (0.015, 0.030),
     "get": (0.050, 0.045),
     "go": (0.030, 0.050),
+
+    # ── Extended spam vocabulary (compiled from real SMS / email corpora) ────
+
+    # Lottery / Prize / Reward
+    "jackpot": (0.040, 0.0001),
+    "raffle": (0.030, 0.0001),
+    "congratulations": (0.075, 0.002),
+    "congrats": (0.060, 0.002),
+    "notification": (0.035, 0.003),
+    "entitled": (0.045, 0.0005),
+    "reward": (0.060, 0.001),
+    "voucher": (0.045, 0.0005),
+    "coupon": (0.035, 0.001),
+    "discount": (0.030, 0.002),
+    "exclusive": (0.045, 0.002),
+    "limited": (0.055, 0.002),
+    "expires": (0.045, 0.0005),
+    "expire": (0.040, 0.0005),
+    "redeem": (0.045, 0.0005),
+    "collect": (0.045, 0.001),
+    "hurry": (0.055, 0.001),
+    "immediately": (0.050, 0.003),
+    "today": (0.055, 0.015),
+    "membership": (0.045, 0.0005),
+    "subscription": (0.045, 0.001),
+    "renewal": (0.035, 0.0005),
+    "charged": (0.040, 0.002),
+    "invoice": (0.030, 0.001),
+    "overdue": (0.035, 0.0001),
+    "payment": (0.045, 0.003),
+    "debit": (0.035, 0.001),
+    "credit": (0.035, 0.004),
+
+    # Phishing / account-takeover
+    "update": (0.045, 0.005),
+    "confirm": (0.060, 0.004),
+    "validate": (0.045, 0.0005),
+    "expired": (0.045, 0.001),
+    "blocked": (0.045, 0.001),
+    "locked": (0.040, 0.001),
+    "reactivate": (0.040, 0.0001),
+    "restore": (0.035, 0.001),
+    "reset": (0.030, 0.003),
+    "alert": (0.045, 0.003),
+    "warning": (0.040, 0.002),
+    "attention": (0.040, 0.002),
+    "notice": (0.030, 0.003),
+    "immediate": (0.045, 0.001),
+
+    # Financial scam
+    "transfer": (0.050, 0.001),
+    "beneficiary": (0.035, 0.0001),
+    "inheritance": (0.040, 0.0001),
+    "billion": (0.025, 0.0001),
+    "funds": (0.045, 0.001),
+    "forex": (0.025, 0.0001),
+    "trading": (0.035, 0.001),
+    "investment": (0.035, 0.001),
+    "commission": (0.030, 0.001),
+    "bank": (0.045, 0.004),
+    "wallet": (0.040, 0.002),
+    "transaction": (0.050, 0.002),
+    "amount": (0.040, 0.003),
+    "deposit": (0.045, 0.001),
+
+    # Contact / action spam
+    "call": (0.080, 0.012),
+    "calling": (0.035, 0.006),
+    "dial": (0.040, 0.001),
+    "mobile": (0.060, 0.010),
+    "whatsapp": (0.040, 0.006),
+    "telegram": (0.035, 0.003),
+    "customer": (0.050, 0.004),
+    "helpline": (0.030, 0.001),
+    "representative": (0.025, 0.002),
+    "register": (0.030, 0.001),
+    "signup": (0.035, 0.001),
+    "join": (0.025, 0.004),
+    "activate": (0.035, 0.001),
+    "subscribe": (0.040, 0.001),
+    "download": (0.030, 0.004),
+    "visit": (0.030, 0.004),
+    "special": (0.045, 0.004),
+
+    # Sensitive-info phishing triggers
+    "details": (0.055, 0.003),
+    "personal": (0.035, 0.005),
+    "private": (0.035, 0.002),
+    "secret": (0.040, 0.001),
+    "cvv": (0.090, 0.0001),
+    "ssn": (0.070, 0.0001),
+    "number": (0.035, 0.012),
+    "information": (0.040, 0.006),
+
+    # Extended ham vocabulary (common in genuine casual messages)
+    "class": (0.0001, 0.010),
+    "bus": (0.0001, 0.007),
+    "sleep": (0.0001, 0.009),
+    "movie": (0.002, 0.011),
+    "watch": (0.001, 0.013),
+    "study": (0.0001, 0.009),
+    "exam": (0.0001, 0.008),
+    "school": (0.0001, 0.009),
+    "college": (0.0001, 0.006),
+    "book": (0.001, 0.009),
+    "read": (0.001, 0.011),
+    "gym": (0.0001, 0.005),
+    "coffee": (0.0001, 0.007),
+    "food": (0.001, 0.013),
+    "night": (0.003, 0.013),
+    "morning": (0.001, 0.011),
+    "weekend": (0.001, 0.011),
+    "party": (0.002, 0.009),
+    "game": (0.003, 0.011),
+    "family": (0.001, 0.011),
+    "baby": (0.001, 0.009),
+    "kids": (0.001, 0.008),
+    "brother": (0.0001, 0.007),
+    "sister": (0.0001, 0.007),
+    "mother": (0.0001, 0.007),
+    "father": (0.0001, 0.007),
+    "husband": (0.0001, 0.006),
+    "wife": (0.0001, 0.007),
+    "doctor": (0.0001, 0.006),
+    "hospital": (0.0001, 0.006),
+    "train": (0.001, 0.009),
+    "time": (0.005, 0.016),
+    "day": (0.004, 0.016),
+    "good": (0.003, 0.018),
+    "great": (0.006, 0.014),
+    "nice": (0.002, 0.011),
+    "need": (0.008, 0.016),
+    "want": (0.005, 0.018),
+    "like": (0.005, 0.022),
+    "think": (0.003, 0.015),
+    "talk": (0.002, 0.012),
+    "see": (0.004, 0.016),
+    "back": (0.003, 0.015),
+    "take": (0.004, 0.012),
+    "just": (0.006, 0.025),
+    "let": (0.003, 0.014),
+    "make": (0.004, 0.013),
+    "got": (0.004, 0.016),
+    "still": (0.003, 0.013),
+    "really": (0.004, 0.016),
+    "maybe": (0.001, 0.010),
+    "sure": (0.003, 0.013),
+    "right": (0.003, 0.015),
+    "wait": (0.001, 0.011),
+    "help": (0.008, 0.014),
+    "feel": (0.002, 0.012),
+    "look": (0.004, 0.013),
+    "start": (0.005, 0.010),
+    "try": (0.005, 0.013),
+    "ask": (0.003, 0.011),
+    "tell": (0.015, 0.014),
+    "give": (0.015, 0.013),
+    "check": (0.025, 0.012),
+    "open": (0.020, 0.007),
 }
 
-# Laplace smoothed defaults for out-of-vocabulary words (equal to avoid class skew)
+# Laplace smoothed defaults for out-of-vocabulary words
+# Both equal so that unknown words do not skew the score;
+# a small structural nudge is applied separately for short OOV-heavy messages.
 DEFAULT_P_SPAM = 0.00001
 DEFAULT_P_HAM = 0.00001
+
+# ── Bigram (phrase-level) probabilities ──────────────────────────────────────
+# Format: "word1 word2": (p_spam, p_ham)
+BIGRAM_PROBS = {
+    # Strong spam bigrams
+    "free entry": (0.150, 0.0001),
+    "click here": (0.120, 0.0001),
+    "share otp": (0.180, 0.0001),
+    "your otp": (0.150, 0.0001),
+    "send otp": (0.160, 0.0001),
+    "enter otp": (0.150, 0.0001),
+    "otp now": (0.150, 0.0001),
+    "verification code": (0.120, 0.0001),
+    "one time": (0.100, 0.001),
+    "win cash": (0.120, 0.0001),
+    "free prize": (0.140, 0.0001),
+    "claim prize": (0.130, 0.0001),
+    "call now": (0.120, 0.0002),
+    "act now": (0.100, 0.0001),
+    "limited time": (0.100, 0.0002),
+    "cash prize": (0.120, 0.0001),
+    "free gift": (0.100, 0.0001),
+    "won prize": (0.120, 0.0001),
+    "bank details": (0.100, 0.0001),
+    "account details": (0.100, 0.0001),
+    "personal details": (0.100, 0.0001),
+    "card details": (0.100, 0.0001),
+    "credit card": (0.080, 0.002),
+    "bank account": (0.080, 0.002),
+    "urgent reply": (0.100, 0.0001),
+    "reply stop": (0.100, 0.0001),
+    "dear winner": (0.120, 0.0001),
+    "dear customer": (0.100, 0.0001),
+    "valued customer": (0.100, 0.0001),
+    "congrats winner": (0.130, 0.0001),
+    "congratulations winner": (0.140, 0.0001),
+    "mobile number": (0.080, 0.003),
+    "phone number": (0.060, 0.004),
+    "bitcoin wallet": (0.120, 0.0001),
+    "crypto wallet": (0.120, 0.0001),
+    "forex trading": (0.100, 0.0001),
+    "money transfer": (0.100, 0.001),
+    "wire transfer": (0.100, 0.0001),
+    "make money": (0.080, 0.0001),
+    "earn money": (0.080, 0.0001),
+    "free membership": (0.100, 0.0001),
+    "your password": (0.100, 0.001),
+    "your pin": (0.100, 0.001),
+    "your account": (0.080, 0.005),
+    "account suspended": (0.100, 0.0001),
+    "account blocked": (0.100, 0.0001),
+    "text now": (0.100, 0.001),
+    "reply yes": (0.080, 0.001),
+    "limited offer": (0.090, 0.0001),
+    "special offer": (0.080, 0.001),
+    "exclusive offer": (0.090, 0.0001),
+    "apply now": (0.080, 0.001),
+    "work from": (0.050, 0.001),
+    "prize money": (0.120, 0.0001),
+    "toll free": (0.090, 0.0001),
+    # Ham bigrams (strongly indicate legitimate messages)
+    "thank you": (0.001, 0.025),
+    "sounds good": (0.0001, 0.015),
+    "see you": (0.001, 0.020),
+    "talk later": (0.0001, 0.015),
+    "good morning": (0.0001, 0.012),
+    "good night": (0.0001, 0.012),
+    "how are": (0.001, 0.018),
+    "are you": (0.002, 0.018),
+    "let me": (0.002, 0.015),
+    "can you": (0.003, 0.018),
+    "going to": (0.003, 0.020),
+    "be there": (0.001, 0.012),
+    "come over": (0.001, 0.010),
+    "at home": (0.0001, 0.012),
+    "on my": (0.002, 0.015),
+    "i will": (0.001, 0.020),
+    "will be": (0.002, 0.015),
+}
 
 # Rule-based heuristics
 FREE_MSG = re.compile(r"\bfree\s*msg\b", re.IGNORECASE)
@@ -153,8 +403,42 @@ PHISHING_PATTERNS = [
     r"unauthorized.*(transaction|activity|charges)",
     r"action.*required",
     r"security.*(alert|breach|check)",
-    r"login.*to.*(restore|reactivate|verify)"
+    r"login.*to.*(restore|reactivate|verify)",
+    # OTP / verification-code solicitation patterns
+    r"(share|send|submit|provide|enter|give).*\botp\b",
+    r"\botp\b.*(share|send|submit|provide|enter|give)",
+    r"one.?time.*(password|code|pin|passcode)",
+    r"(verification|verify).*(code|pin|otp|passcode)",
+    r"(code|pin|otp|passcode).*(verify|verification|confirm)",
 ]
+
+# ── Surface / structural feature detectors ───────────────────────────────────
+# Detect ALL-CAPS words (shouting = common spam signal)
+ALL_CAPS_WORD = re.compile(r"\b[A-Z]{3,}\b")
+
+# Detect explicit monetary amounts (£900, $5,000, 1000 dollars, etc.)
+MONEY_AMOUNT = re.compile(
+    r"[£$€₹¥]\s*\d[\d,]*(\.[\d]+)?"
+    r"|\b\d[\d,]*(\.[\d]+)?\s*(pounds?|dollars?|euros?|rupees?|usd|gbp|inr|euro)\b",
+    re.IGNORECASE
+)
+
+# Detect 2+ consecutive identical punctuation marks ( !! ??? !!!! )
+EXCESSIVE_PUNCT = re.compile(r"[!?]{2,}")
+
+# Detect premium-rate or suspicious phone number prefixes
+SUSPICIOUS_PHONE = re.compile(
+    r"\b(0800|0900|0808|0844|0845|0870|09\d{2})\s*\d[\d\s]{4,}\b"
+)
+
+# Detect imperative verbs immediately followed by sensitive credential nouns
+IMPERATIVE_SENSITIVE = re.compile(
+    r"\b(share|send|give|provide|enter|submit|tell|reveal|disclose|"
+    r"confirm|verify|type|paste|forward)\b.{0,60}"
+    r"\b(otp|pin|password|passcode|code|cvv|ssn|details|credentials|"
+    r"account|information|card|number|secret|private|token)\b",
+    re.IGNORECASE | re.DOTALL
+)
 
 DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
 STORE_FILE = os.path.join(DATA_DIR, "keyword_store.json")
@@ -355,6 +639,12 @@ def correct_prediction(text: str, was_spam: bool, is_spam: bool) -> dict:
     return detect_spam(text)
 
 
+def extract_bigrams(text: str) -> list[str]:
+    """Extract adjacent lowercase word bigrams for phrase-level Naive Bayes scoring."""
+    tokens = re.findall(r"\b[a-zA-Z0-9']+\b", text.lower())
+    return [f"{tokens[i]} {tokens[i + 1]}" for i in range(len(tokens) - 1)]
+
+
 STOP_WORDS = {
     "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", 
     "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", 
@@ -389,12 +679,20 @@ def detect_spam(text: str) -> dict:
         }
 
     words = preprocess_text(text)
+    bigrams = extract_bigrams(text)
     
     # Load learned keywords
     store = load_store()
     total_spam = store.get("total_spam_messages", 0)
     total_ham = store.get("total_ham_messages", 0)
     keyword_counts = store.get("keyword_counts", {})
+    
+    # Smarter OOV: count words not in any known vocabulary
+    oov_count = sum(
+        1 for w in words
+        if w not in VOCAB_PROBS and w not in keyword_counts
+    )
+    oov_ratio = oov_count / max(len(words), 1)
     
     # 1. Naive Bayes classification
     score_spam = math.log(P_SPAM_PRIOR)
@@ -422,6 +720,15 @@ def detect_spam(text: str) -> dict:
         # Add to detected list if it leans heavily towards spam
         if p_spam > p_ham * 2.0:
             detected_words.add(word)
+
+    # 1b. Bigram (phrase-level) Naive Bayes scoring
+    for bigram in bigrams:
+        if bigram in BIGRAM_PROBS:
+            bg_spam, bg_ham = BIGRAM_PROBS[bigram]
+            score_spam += math.log(bg_spam)
+            score_ham += math.log(bg_ham)
+            if bg_spam > bg_ham * 2.0:
+                detected_words.add(bigram)
 
     # 2. Heuristics / Rules (add log-odds multipliers)
     heuristic_spam_boost = 0.0
@@ -467,7 +774,43 @@ def detect_spam(text: str) -> dict:
         heuristic_spam_boost += 2.5 * phishing_hits
         heuristic_reasons.append("phishing intent keywords")
 
-    # Apply heuristics boost directly to spam score
+    # 3. Surface / structural feature analysis
+    # ALL-CAPS words ratio — shouting is a strong spam signal
+    caps_words = ALL_CAPS_WORD.findall(text)
+    caps_ratio = len(caps_words) / max(len(text.split()), 1)
+    if caps_ratio > 0.25:
+        boost = min(1.5 * caps_ratio * 4, 4.0)
+        heuristic_spam_boost += boost
+        heuristic_reasons.append("excessive ALL-CAPS text")
+
+    # Explicit monetary amounts (£900, $5000, etc.)
+    if MONEY_AMOUNT.search(text):
+        heuristic_spam_boost += 2.5
+        heuristic_reasons.append("suspicious monetary amount")
+
+    # Excessive punctuation (!! ??? !!!)
+    excess_puncts = EXCESSIVE_PUNCT.findall(text)
+    if len(excess_puncts) >= 1:
+        heuristic_spam_boost += min(1.0 * len(excess_puncts), 3.0)
+        heuristic_reasons.append("excessive punctuation marks")
+
+    # Premium-rate or suspicious phone numbers
+    if SUSPICIOUS_PHONE.search(text):
+        heuristic_spam_boost += 3.5
+        heuristic_reasons.append("premium-rate phone number")
+
+    # Imperative verb + sensitive credential noun (high-confidence phishing)
+    if IMPERATIVE_SENSITIVE.search(text):
+        heuristic_spam_boost += 5.0
+        heuristic_reasons.append("solicitation of sensitive personal info")
+
+    # 4. Smarter OOV nudge for very short, mostly-unknown messages
+    # Genuine messages overwhelmingly use common everyday words.
+    # A short message built almost entirely from unknown words leans spam.
+    if len(words) <= 6 and oov_ratio >= 0.65:
+        heuristic_spam_boost += 0.8
+
+    # Apply all heuristic boosts to spam score
     score_spam += heuristic_spam_boost
 
     # Convert log scores back to absolute probability cleanly
