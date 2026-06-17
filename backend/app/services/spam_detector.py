@@ -2,6 +2,8 @@ import re
 import math
 import os
 import json
+import csv
+
 
 # Prior probabilities
 P_SPAM_PRIOR = 0.15
@@ -11,6 +13,9 @@ P_HAM_PRIOR = 0.85
 # compiled from standard email and SMS spam corpuses.
 VOCAB_PROBS = {
     # Strong spam words
+    "barbie": (0.02, 0.0001),
+    "ken": (0.02, 0.0001),
+    "divorce": (0.02, 0.0001),
     "free": (0.185, 0.008),
     "prize": (0.095, 0.0001),
     "claim": (0.120, 0.0001),
@@ -153,11 +158,110 @@ PHISHING_PATTERNS = [
 
 DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
 STORE_FILE = os.path.join(DATA_DIR, "keyword_store.json")
+LOG_FILE = os.path.join(DATA_DIR, "user_inputs_history.json")
+CSV_FILE = os.path.join(DATA_DIR, "datasets.csv")
+
+
+def log_user_input(text: str, prediction: dict):
+    if not text.strip():
+        return
+    
+    init_store()
+    history = []
+    if os.path.exists(LOG_FILE):
+        try:
+            with open(LOG_FILE, "r") as f:
+                history = json.load(f)
+        except Exception:
+            history = []
+            
+    history.append({
+        "text": text,
+        "is_spam": prediction.get("is_spam", False),
+        "confidence": prediction.get("confidence", 0.0),
+        "spam_score": prediction.get("spam_score", 0.0),
+        "ham_score": prediction.get("ham_score", 0.0)
+    })
+    
+    history = history[-100:]
+    
+    try:
+        with open(LOG_FILE, "w") as f:
+            json.dump(history, f, indent=2)
+    except Exception as e:
+        print(f"Error saving user input log: {e}")
+
+
+def train_from_csv():
+    if not os.path.exists(CSV_FILE):
+        return
+    
+    store = {
+        "total_spam_messages": 0,
+        "total_ham_messages": 0,
+        "keyword_counts": {}
+    }
+    
+    try:
+        with open(CSV_FILE, "r", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if len(row) < 3:
+                    continue
+                label = row[1].strip().lower()
+                text = row[2]
+                
+                is_spam = (label == "spam")
+                is_ham = (label == "ham")
+                
+                if not (is_spam or is_ham):
+                    continue
+                    
+                words = preprocess_text(text)
+                if is_spam:
+                    store["total_spam_messages"] += 1
+                else:
+                    store["total_ham_messages"] += 1
+                    
+                keyword_counts = store["keyword_counts"]
+                for word in set(words):
+                    if word not in keyword_counts:
+                        keyword_counts[word] = {"spam_count": 0, "ham_count": 0}
+                    if is_spam:
+                        keyword_counts[word]["spam_count"] += 1
+                    else:
+                        keyword_counts[word]["ham_count"] += 1
+                        
+        save_store_direct(store)
+    except Exception as e:
+        print(f"Error training from CSV: {e}")
+
+def save_store_direct(data: dict):
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR, exist_ok=True)
+    try:
+        with open(STORE_FILE, "w") as f:
+            json.dump(data, f, indent=2)
+    except Exception as e:
+        print(f"Error saving keyword store: {e}")
 
 def init_store():
     if not os.path.exists(DATA_DIR):
         os.makedirs(DATA_DIR, exist_ok=True)
-    if not os.path.exists(STORE_FILE):
+        
+    csv_exists = os.path.exists(CSV_FILE)
+    store_exists = os.path.exists(STORE_FILE)
+    
+    should_train = False
+    if csv_exists:
+        if not store_exists:
+            should_train = True
+        else:
+            should_train = os.path.getmtime(CSV_FILE) > os.path.getmtime(STORE_FILE)
+            
+    if should_train:
+        train_from_csv()
+    elif not store_exists:
         initial_data = {
             "total_spam_messages": 0,
             "total_ham_messages": 0,
@@ -165,6 +269,7 @@ def init_store():
         }
         with open(STORE_FILE, "w") as f:
             json.dump(initial_data, f, indent=2)
+
 
 def load_store() -> dict:
     init_store()
@@ -186,27 +291,91 @@ def save_store(data: dict):
     except Exception as e:
         print(f"Error saving keyword store: {e}")
 
-def save_learned_keywords(words: list[str], is_spam: bool):
+def save_learned_keywords(words: list[str], is_spam: bool, weight: int = 1):
     store = load_store()
     if is_spam:
-        store["total_spam_messages"] += 1
+        store["total_spam_messages"] += weight
     else:
-        store["total_ham_messages"] += 1
+        store["total_ham_messages"] += weight
         
     keyword_counts = store["keyword_counts"]
     for word in set(words):
         if word not in keyword_counts:
             keyword_counts[word] = {"spam_count": 0, "ham_count": 0}
         if is_spam:
-            keyword_counts[word]["spam_count"] += 1
+            keyword_counts[word]["spam_count"] += weight
         else:
-            keyword_counts[word]["ham_count"] += 1
+            keyword_counts[word]["ham_count"] += weight
     save_store(store)
+
+def correct_learned_keywords(words: list[str], was_spam: bool, is_spam: bool, weight: int = 5):
+    store = load_store()
+    
+    # 1. Undo the automatic save_learned_keywords (which was run with weight=1 on was_spam)
+    if was_spam:
+        if store["total_spam_messages"] >= 1:
+            store["total_spam_messages"] -= 1
+    else:
+        if store["total_ham_messages"] >= 1:
+            store["total_ham_messages"] -= 1
+            
+    keyword_counts = store["keyword_counts"]
+    for word in set(words):
+        if word in keyword_counts:
+            if was_spam:
+                if keyword_counts[word]["spam_count"] >= 1:
+                    keyword_counts[word]["spam_count"] -= 1
+            else:
+                if keyword_counts[word]["ham_count"] >= 1:
+                    keyword_counts[word]["ham_count"] -= 1
+
+    # 2. Add the correct feedback with a higher weight (e.g., 5) to shift predictions
+    if is_spam:
+        store["total_spam_messages"] += weight
+    else:
+        store["total_ham_messages"] += weight
+        
+    for word in set(words):
+        if word not in keyword_counts:
+            keyword_counts[word] = {"spam_count": 0, "ham_count": 0}
+        if is_spam:
+            keyword_counts[word]["spam_count"] += weight
+        else:
+            keyword_counts[word]["ham_count"] += weight
+            
+    save_store(store)
+
+def correct_prediction(text: str, was_spam: bool, is_spam: bool) -> dict:
+    if was_spam == is_spam:
+        return detect_spam(text)
+        
+    words = preprocess_text(text)
+    correct_learned_keywords(words, was_spam, is_spam, weight=5)
+    
+    return detect_spam(text)
+
+
+STOP_WORDS = {
+    "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", 
+    "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", 
+    "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", 
+    "what", "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are", 
+    "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", 
+    "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", 
+    "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", 
+    "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", 
+    "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", 
+    "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "most", 
+    "other", "some", "such", "nor", "than", "too", "very", "s", "t", "should", "always", 
+    "so"
+}
 
 def preprocess_text(text: str) -> list[str]:
     # Extract alpha-numeric words, converting to lowercase
     words = re.findall(r"\b[a-zA-Z]{2,15}\b", text.lower())
-    return words
+    # Filter out stop words
+    filtered_words = [w for w in words if w not in STOP_WORDS]
+    return filtered_words
 
 def detect_spam(text: str) -> dict:
     if not text.strip():
@@ -237,10 +406,10 @@ def detect_spam(text: str) -> dict:
         p_spam_base, p_ham_base = VOCAB_PROBS.get(word, (DEFAULT_P_SPAM, DEFAULT_P_HAM))
         
         # Blending baseline probabilities with dynamically learned feedback loop
-        if total_spam > 0 or total_ham > 0:
-            counts = keyword_counts.get(word, {"spam_count": 0, "ham_count": 0})
-            p_spam_learned = (counts["spam_count"] + 1) / (total_spam + 2)
-            p_ham_learned = (counts["ham_count"] + 1) / (total_ham + 2)
+        if (total_spam > 0 or total_ham > 0) and word in keyword_counts:
+            counts = keyword_counts[word]
+            p_spam_learned = (counts.get("spam_count", 0) + 1) / (total_spam + 2)
+            p_ham_learned = (counts.get("ham_count", 0) + 1) / (total_ham + 2)
             
             p_spam = 0.6 * p_spam_base + 0.4 * p_spam_learned
             p_ham = 0.6 * p_ham_base + 0.4 * p_ham_learned
@@ -338,7 +507,7 @@ def detect_spam(text: str) -> dict:
         reverse=True
     )
 
-    return {
+    result = {
         "is_spam": is_spam,
         "confidence": round(confidence, 4),
         "message": message,
@@ -346,3 +515,6 @@ def detect_spam(text: str) -> dict:
         "ham_score": round(1.0 - spam_prob, 4),
         "keywords_detected": keywords_sorted[:7] # Return top 7 keywords max
     }
+    
+    log_user_input(text, result)
+    return result

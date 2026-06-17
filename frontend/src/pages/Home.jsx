@@ -87,6 +87,22 @@ export default function Home() {
         {/* Ambient background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
+        {/* Outer soft torchlight glow */}
+        <div
+          className="absolute top-[104px] md:top-[152px] left-[calc(50%-2rem)] md:left-[calc(50%-2.6rem)] -translate-x-1/2 w-[800px] h-[800px] blur-[40px] pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at top, rgba(255, 255, 255, 0.06) 0%, rgba(192, 132, 252, 0.03) 20%, rgba(192, 132, 252, 0.005) 45%, transparent 70%)'
+          }}
+        />
+
+        {/* Inner vertical spotlight/torchlight beam */}
+        <div
+          className="absolute top-[104px] md:top-[152px] left-[calc(50%-2rem)] md:left-[calc(50%-2.6rem)] -translate-x-1/2 w-[240px] h-[480px] blur-[25px] pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at top, rgba(255, 255, 255, 0.10) 0%, rgba(192, 132, 252, 0.04) 25%, transparent 70%)'
+          }}
+        />
+
         {/* ELYRA Brand Identity vertical lockup from the top image */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}

@@ -84,7 +84,7 @@ export default function SpamAnalyzer() {
               placeholder="Paste email or text snippet here..."
               value={text}
               onChange={(e) => setText(e.target.value)}
-              disabled={analyzing}
+              disabled={analyzing || result !== null}
             />
 
             <div className="flex items-center justify-end gap-3 pt-2">
@@ -99,7 +99,7 @@ export default function SpamAnalyzer() {
               )}
               <button
                 type="submit"
-                disabled={analyzing || !text.trim()}
+                disabled={analyzing || !text.trim() || result !== null}
                 className="flex items-center gap-2 py-2.5 px-6 rounded-full bg-white hover:bg-white/90 text-bg-primary font-semibold text-xs tracking-tight transition-custom disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
               >
                 {analyzing ? (
@@ -109,7 +109,7 @@ export default function SpamAnalyzer() {
                   </>
                 ) : (
                   <>
-                    <span>Run Pipeline</span>
+                    <span>Run Analysis</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </>
                 )}
@@ -173,28 +173,12 @@ export default function SpamAnalyzer() {
                   </div>
                 </div>
 
-                {/* Detected Keywords */}
-                {result.keywordsDetected.length > 0 && (
-                  <div className="space-y-2 pt-2">
-                    <span className="block text-[10px] uppercase font-bold text-text-muted">
-                      Trigger Keywords Detected
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {result.keywordsDetected.map((w, i) => (
-                        <span
-                          key={i}
-                          className="text-[11px] bg-bg-primary border border-border-custom text-text-secondary px-2.5 py-1 rounded-md"
-                        >
-                          {w}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
+
 
                 <div className="text-[11px] text-text-muted pt-2">
                   {result.message}
                 </div>
+
               </motion.div>
             ) : (
               <div className="flex flex-col items-center justify-center py-16 text-center space-y-3">

@@ -1,0 +1,387 @@
+[
+  {
+    "text": "Hello, how are you today?",
+    "is_spam": false,
+    "confidence": 0.9541,
+    "spam_score": 0.0459,
+    "ham_score": 0.9541
+  },
+  {
+    "text": "Claim your FREE prize money now!",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Lol your always so convincing.",
+    "is_spam": false,
+    "confidence": 0.85,
+    "spam_score": 0.15,
+    "ham_score": 0.85
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.7843,
+    "spam_score": 0.7843,
+    "ham_score": 0.2157
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.8044,
+    "spam_score": 0.8044,
+    "ham_score": 0.1956
+  },
+  {
+    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Hello, how are you today?",
+    "is_spam": false,
+    "confidence": 0.9541,
+    "spam_score": 0.0459,
+    "ham_score": 0.9541
+  },
+  {
+    "text": "Claim your FREE prize money now!",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Lol your always so convincing.",
+    "is_spam": false,
+    "confidence": 0.85,
+    "spam_score": 0.15,
+    "ham_score": 0.85
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.7843,
+    "spam_score": 0.7843,
+    "ham_score": 0.2157
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.8044,
+    "spam_score": 0.8044,
+    "ham_score": 0.1956
+  },
+  {
+    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Unique test message to verify logging.",
+    "is_spam": true,
+    "confidence": 0.951,
+    "spam_score": 0.951,
+    "ham_score": 0.049
+  },
+  {
+    "text": "U can call me now...",
+    "is_spam": false,
+    "confidence": 0.5414,
+    "spam_score": 0.4586,
+    "ham_score": 0.5414
+  },
+  {
+    "text": "U can call me now...",
+    "is_spam": false,
+    "confidence": 0.9688,
+    "spam_score": 0.0312,
+    "ham_score": 0.9688
+  },
+  {
+    "text": "U can call me now...",
+    "is_spam": false,
+    "confidence": 0.9778,
+    "spam_score": 0.0222,
+    "ham_score": 0.9778
+  },
+  {
+    "text": "Your free ringtone is waiting to be collected. Simply text the password \"MIX\" to 85069 to verify. Get Usher and Britney. FML, PO Box 5249, MK17 92H. 450Ppw 16",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Hello, how are you today?",
+    "is_spam": false,
+    "confidence": 0.9541,
+    "spam_score": 0.0459,
+    "ham_score": 0.9541
+  },
+  {
+    "text": "Claim your FREE prize money now!",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Lol your always so convincing.",
+    "is_spam": false,
+    "confidence": 0.85,
+    "spam_score": 0.15,
+    "ham_score": 0.85
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.7843,
+    "spam_score": 0.7843,
+    "ham_score": 0.2157
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.8044,
+    "spam_score": 0.8044,
+    "ham_score": 0.1956
+  },
+  {
+    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Unique test message to verify logging.",
+    "is_spam": true,
+    "confidence": 0.951,
+    "spam_score": 0.951,
+    "ham_score": 0.049
+  },
+  {
+    "text": "Hello, how are you today?",
+    "is_spam": false,
+    "confidence": 0.9541,
+    "spam_score": 0.0459,
+    "ham_score": 0.9541
+  },
+  {
+    "text": "Claim your FREE prize money now!",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Lol your always so convincing.",
+    "is_spam": false,
+    "confidence": 0.85,
+    "spam_score": 0.15,
+    "ham_score": 0.85
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.7843,
+    "spam_score": 0.7843,
+    "ham_score": 0.2157
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.8044,
+    "spam_score": 0.8044,
+    "ham_score": 0.1956
+  },
+  {
+    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Unique test message to verify logging.",
+    "is_spam": true,
+    "confidence": 0.951,
+    "spam_score": 0.951,
+    "ham_score": 0.049
+  },
+  {
+    "text": "Please don't text me anymore. I have nothing else to say.",
+    "is_spam": true,
+    "confidence": 0.602,
+    "spam_score": 0.602,
+    "ham_score": 0.398
+  },
+  {
+    "text": "Please don't text me anymore. I have nothing else to say.",
+    "is_spam": false,
+    "confidence": 0.8152,
+    "spam_score": 0.1848,
+    "ham_score": 0.8152
+  },
+  {
+    "text": "Please don't text me anymore. I have nothing else to say.",
+    "is_spam": false,
+    "confidence": 0.9697,
+    "spam_score": 0.0303,
+    "ham_score": 0.9697
+  },
+  {
+    "text": "Please don't text me anymore. I have nothing else to say.",
+    "is_spam": false,
+    "confidence": 0.9864,
+    "spam_score": 0.0136,
+    "ham_score": 0.9864
+  },
+  {
+    "text": "Hello, how are you today?",
+    "is_spam": false,
+    "confidence": 0.9541,
+    "spam_score": 0.0459,
+    "ham_score": 0.9541
+  },
+  {
+    "text": "Claim your FREE prize money now!",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Lol your always so convincing.",
+    "is_spam": false,
+    "confidence": 0.85,
+    "spam_score": 0.15,
+    "ham_score": 0.85
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.7843,
+    "spam_score": 0.7843,
+    "ham_score": 0.2157
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.8044,
+    "spam_score": 0.8044,
+    "ham_score": 0.1956
+  },
+  {
+    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Unique test message to verify logging.",
+    "is_spam": true,
+    "confidence": 0.951,
+    "spam_score": 0.951,
+    "ham_score": 0.049
+  },
+  {
+    "text": "Hello, how are you today?",
+    "is_spam": false,
+    "confidence": 0.9541,
+    "spam_score": 0.0459,
+    "ham_score": 0.9541
+  },
+  {
+    "text": "Claim your FREE prize money now!",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Lol your always so convincing.",
+    "is_spam": false,
+    "confidence": 0.85,
+    "spam_score": 0.15,
+    "ham_score": 0.85
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.7843,
+    "spam_score": 0.7843,
+    "ham_score": 0.2157
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.8044,
+    "spam_score": 0.8044,
+    "ham_score": 0.1956
+  },
+  {
+    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Unique test message to verify logging.",
+    "is_spam": true,
+    "confidence": 0.951,
+    "spam_score": 0.951,
+    "ham_score": 0.049
+  }
+]
