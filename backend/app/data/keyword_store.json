@@ -1,32 +1,24 @@
 {
-  "total_spam_messages": 6,
-  "total_ham_messages": 0,
+  "total_spam_messages": 12,
+  "total_ham_messages": 5,
   "keyword_counts": {
-    "otp": {
-      "spam_count": 4,
-      "ham_count": 0
-    },
     "share": {
       "spam_count": 2,
       "ham_count": 0
     },
+    "otp": {
+      "spam_count": 4,
+      "ham_count": 0
+    },
     "now": {
-      "spam_count": 1,
+      "spam_count": 2,
       "ham_count": 0
     },
     "please": {
-      "spam_count": 1,
-      "ham_count": 0
+      "spam_count": 3,
+      "ham_count": 2
     },
     "password": {
-      "spam_count": 1,
-      "ham_count": 0
-    },
-    "us": {
-      "spam_count": 1,
-      "ham_count": 0
-    },
-    "time": {
       "spam_count": 1,
       "ham_count": 0
     },
@@ -34,19 +26,19 @@
       "spam_count": 1,
       "ham_count": 0
     },
-    "send": {
-      "spam_count": 2,
+    "us": {
+      "spam_count": 1,
       "ham_count": 0
     },
     "one": {
       "spam_count": 1,
       "ham_count": 0
     },
-    "enter": {
+    "time": {
       "spam_count": 1,
       "ham_count": 0
     },
-    "verification": {
+    "send": {
       "spam_count": 2,
       "ham_count": 0
     },
@@ -54,15 +46,27 @@
       "spam_count": 1,
       "ham_count": 0
     },
-    "provide": {
+    "verification": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "enter": {
       "spam_count": 1,
       "ham_count": 0
+    },
+    "confirm": {
+      "spam_count": 2,
+      "ham_count": 2
     },
     "identity": {
       "spam_count": 1,
       "ham_count": 0
     },
-    "confirm": {
+    "provide": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "needs": {
       "spam_count": 1,
       "ham_count": 0
     },
@@ -70,7 +74,283 @@
       "spam_count": 1,
       "ham_count": 0
     },
-    "needs": {
+    "macedonia": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "goals": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "national": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "eg": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "try": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "miss": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "team": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "txt": {
+      "spam_count": 3,
+      "ham_count": 0
+    },
+    "news": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "england": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "wales": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "dont": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "scotland": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "ur": {
+      "spam_count": 2,
+      "ham_count": 0
+    },
+    "alright": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "sooner": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "meet": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "ffffffffff": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "can": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "no": {
+      "spam_count": 1,
+      "ham_count": 3
+    },
+    "way": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "subscription": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "will": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "not": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "thanks": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "replying": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "uk": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "month": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "yes": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "mobile": {
+      "spam_count": 2,
+      "ham_count": 2
+    },
+    "ringtone": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "reply": {
+      "spam_count": 2,
+      "ham_count": 2
+    },
+    "charged": {
+      "spam_count": 1,
+      "ham_count": 2
+    },
+    "housework": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "just": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "quick": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "cuppa": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "fainting": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "fear": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "tried": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "msg": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "rodger": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "burns": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "nokia": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "free": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "sms": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "camcorder": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "call": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "tomorrow": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "re": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "delivery": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "link": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "credit": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "use": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "message": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "click": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "next": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "com": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "wap": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "qjkgighjjgcbl": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "http": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "oh": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "watching": {
+      "spam_count": 0,
+      "ham_count": 1
+    },
+    "ken": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "barbie": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "comes": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "stuff": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "divorce": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "new": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "hear": {
       "spam_count": 1,
       "ham_count": 0
     }

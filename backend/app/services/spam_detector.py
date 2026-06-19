@@ -440,6 +440,24 @@ IMPERATIVE_SENSITIVE = re.compile(
     re.IGNORECASE | re.DOTALL
 )
 
+# Detect P.O. Box addresses — near-universal in UK premium SMS spam footers
+POBOX_PATTERN = re.compile(
+    r"\b(p\.?o\.?\s*box|pobox)\b",
+    re.IGNORECASE
+)
+
+# Detect cost-per-text / rate indicators including corrupted currency symbols
+# Matches: "4txt/ú1.20", "1.50 to rcv", "150p/day", "£1.50/msg" etc.
+COST_PER_TXT = re.compile(
+    r"(?:"
+    r"\d+txt[/\\]"
+    r"|[\u00a3$\u20ac\u20b9\u00a5\u00fa\u00e2\u009c]\s*\d[\d,.]*"
+    r"|\b\d[\d,.]*\s*p(?:ence|/day|/msg|/wk)?"
+    r"|\b\d+\.\d+\s*(?:per|/|to)\s*(?:msg|txt|rcv|sms|min)\b"
+    r")",
+    re.IGNORECASE
+)
+
 DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
 STORE_FILE = os.path.join(DATA_DIR, "keyword_store.json")
 LOG_FILE = os.path.join(DATA_DIR, "user_inputs_history.json")
@@ -788,6 +806,16 @@ def detect_spam(text: str) -> dict:
         heuristic_spam_boost += 2.5
         heuristic_reasons.append("suspicious monetary amount")
 
+    # Cost-per-text patterns (4txt/ú1.20, 150p/day, £1.50/msg etc.)
+    if COST_PER_TXT.search(text):
+        heuristic_spam_boost += 3.5
+        heuristic_reasons.append("premium SMS cost indicator")
+
+    # P.O. Box address — standard footer in UK premium SMS spam
+    if POBOX_PATTERN.search(text):
+        heuristic_spam_boost += 3.0
+        heuristic_reasons.append("P.O. Box address in footer")
+
     # Excessive punctuation (!! ??? !!!)
     excess_puncts = EXCESSIVE_PUNCT.findall(text)
     if len(excess_puncts) >= 1:
@@ -811,15 +839,21 @@ def detect_spam(text: str) -> dict:
         heuristic_spam_boost += 0.8
 
     # Apply all heuristic boosts to spam score
+    # IMPORTANT: Heuristics are applied as a log-odds shift so they remain effective
+    # even when the NB score is driven very negative by many OOV words.
+    # We add them before the final softmax normalisation.
     score_spam += heuristic_spam_boost
 
-    # Convert log scores back to absolute probability cleanly
+    # Convert log scores back to probability using the log-sum-exp trick
+    # (numerically stable even for very large negative scores)
     max_score = max(score_spam, score_ham)
     try:
         exp_spam = math.exp(score_spam - max_score)
         exp_ham = math.exp(score_ham - max_score)
-        spam_prob = exp_spam / (exp_spam + exp_ham)
-    except OverflowError:
+        total = exp_spam + exp_ham
+        # Guard against both being effectively zero (shouldn't happen after max_score shift)
+        spam_prob = exp_spam / total if total > 0 else 0.5
+    except (OverflowError, ZeroDivisionError):
         spam_prob = 1.0 if score_spam > score_ham else 0.0
 
     # Ensure a robust classification boundary

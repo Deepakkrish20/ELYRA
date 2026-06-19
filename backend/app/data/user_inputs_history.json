@@ -1,215 +1,5 @@
 [
   {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": false,
-    "confidence": 0.99,
-    "spam_score": 0.0,
-    "ham_score": 1.0
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": true,
-    "confidence": 0.7843,
-    "spam_score": 0.7843,
-    "ham_score": 0.2157
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": true,
-    "confidence": 0.8044,
-    "spam_score": 0.8044,
-    "ham_score": 0.1956
-  },
-  {
-    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
-    "is_spam": true,
-    "confidence": 0.99,
-    "spam_score": 1.0,
-    "ham_score": 0.0
-  },
-  {
-    "text": "Unique test message to verify logging.",
-    "is_spam": true,
-    "confidence": 0.951,
-    "spam_score": 0.951,
-    "ham_score": 0.049
-  },
-  {
-    "text": "Hello, how are you today?",
-    "is_spam": false,
-    "confidence": 0.9541,
-    "spam_score": 0.0459,
-    "ham_score": 0.9541
-  },
-  {
-    "text": "Claim your FREE prize money now!",
-    "is_spam": true,
-    "confidence": 0.99,
-    "spam_score": 1.0,
-    "ham_score": 0.0
-  },
-  {
-    "text": "Lol your always so convincing.",
-    "is_spam": false,
-    "confidence": 0.85,
-    "spam_score": 0.15,
-    "ham_score": 0.85
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": false,
-    "confidence": 0.99,
-    "spam_score": 0.0,
-    "ham_score": 1.0
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": true,
-    "confidence": 0.7843,
-    "spam_score": 0.7843,
-    "ham_score": 0.2157
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": true,
-    "confidence": 0.8044,
-    "spam_score": 0.8044,
-    "ham_score": 0.1956
-  },
-  {
-    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
-    "is_spam": true,
-    "confidence": 0.99,
-    "spam_score": 1.0,
-    "ham_score": 0.0
-  },
-  {
-    "text": "Unique test message to verify logging.",
-    "is_spam": true,
-    "confidence": 0.951,
-    "spam_score": 0.951,
-    "ham_score": 0.049
-  },
-  {
-    "text": "Hello, how are you today?",
-    "is_spam": false,
-    "confidence": 0.9541,
-    "spam_score": 0.0459,
-    "ham_score": 0.9541
-  },
-  {
-    "text": "Claim your FREE prize money now!",
-    "is_spam": true,
-    "confidence": 0.99,
-    "spam_score": 1.0,
-    "ham_score": 0.0
-  },
-  {
-    "text": "Lol your always so convincing.",
-    "is_spam": false,
-    "confidence": 0.85,
-    "spam_score": 0.15,
-    "ham_score": 0.85
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": false,
-    "confidence": 0.99,
-    "spam_score": 0.0,
-    "ham_score": 1.0
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": true,
-    "confidence": 0.7843,
-    "spam_score": 0.7843,
-    "ham_score": 0.2157
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": true,
-    "confidence": 0.8044,
-    "spam_score": 0.8044,
-    "ham_score": 0.1956
-  },
-  {
-    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
-    "is_spam": true,
-    "confidence": 0.99,
-    "spam_score": 1.0,
-    "ham_score": 0.0
-  },
-  {
-    "text": "Unique test message to verify logging.",
-    "is_spam": true,
-    "confidence": 0.951,
-    "spam_score": 0.951,
-    "ham_score": 0.049
-  },
-  {
-    "text": "Hello, how are you today?",
-    "is_spam": false,
-    "confidence": 0.9541,
-    "spam_score": 0.0459,
-    "ham_score": 0.9541
-  },
-  {
-    "text": "Claim your FREE prize money now!",
-    "is_spam": true,
-    "confidence": 0.99,
-    "spam_score": 1.0,
-    "ham_score": 0.0
-  },
-  {
-    "text": "Lol your always so convincing.",
-    "is_spam": false,
-    "confidence": 0.85,
-    "spam_score": 0.15,
-    "ham_score": 0.85
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": false,
-    "confidence": 0.99,
-    "spam_score": 0.0,
-    "ham_score": 1.0
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": true,
-    "confidence": 0.7843,
-    "spam_score": 0.7843,
-    "ham_score": 0.2157
-  },
-  {
-    "text": "Hey friend, are we still meeting for lunch tomorrow?",
-    "is_spam": true,
-    "confidence": 0.8044,
-    "spam_score": 0.8044,
-    "ham_score": 0.1956
-  },
-  {
-    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
-    "is_spam": true,
-    "confidence": 0.99,
-    "spam_score": 1.0,
-    "ham_score": 0.0
-  },
-  {
-    "text": "Unique test message to verify logging.",
-    "is_spam": true,
-    "confidence": 0.951,
-    "spam_score": 0.951,
-    "ham_score": 0.049
-  },
-  {
-    "text": "Hello, how are you today?",
-    "is_spam": false,
-    "confidence": 0.9541,
-    "spam_score": 0.0459,
-    "ham_score": 0.9541
-  },
-  {
     "text": "Claim your FREE prize money now!",
     "is_spam": true,
     "confidence": 0.99,
@@ -694,6 +484,216 @@
   },
   {
     "text": "Your account needs verification. Send your OTP.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "XXXMobileMovieClub: To use your credit, click the WAP link in the next txt message or click here>> http://wap. xxxmobilemovieclub.com?n=QJKGIGHJJGCBL",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/\u00fa1.20 POBOXox36504W45WQ 16+",
+    "is_spam": false,
+    "confidence": 0.5101,
+    "spam_score": 0.4899,
+    "ham_score": 0.5101
+  },
+  {
+    "text": "So \u00fc pay first lar... Then when is da stock comin...",
+    "is_spam": false,
+    "confidence": 0.7504,
+    "spam_score": 0.2496,
+    "ham_score": 0.7504
+  },
+  {
+    "text": "England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/\u00fa1.20 POBOXox36504W45WQ 16+",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/u1.20 POBOXox36504W45WQ 16+",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "Hello, how are you today?",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0009,
+    "ham_score": 0.9991
+  },
+  {
+    "text": "Claim your FREE prize money now!",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Lol your always so convincing.",
+    "is_spam": false,
+    "confidence": 0.7504,
+    "spam_score": 0.2496,
+    "ham_score": 0.7504
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.7486,
+    "spam_score": 0.7486,
+    "ham_score": 0.2514
+  },
+  {
+    "text": "Hey friend, are we still meeting for lunch tomorrow?",
+    "is_spam": true,
+    "confidence": 0.7711,
+    "spam_score": 0.7711,
+    "ham_score": 0.2289
+  },
+  {
+    "text": "Did you hear about the new Divorce Barbie? It comes with Ken's stuff.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Unique test message to verify logging.",
+    "is_spam": true,
+    "confidence": 0.9734,
+    "spam_score": 0.9734,
+    "ham_score": 0.0266
+  },
+  {
+    "text": "share your otp",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Please share your OTP now",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Send us your one-time password to verify",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Enter your verification code here",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Provide your OTP to confirm your identity",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Your account needs verification. Send your OTP.",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/u1.20 POBOXox36504W45WQ 16+",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 0.9998,
+    "ham_score": 0.0002
+  },
+  {
+    "text": "Ffffffffff. Alright no way I can meet up with you sooner?",
+    "is_spam": false,
+    "confidence": 0.87,
+    "spam_score": 0.13,
+    "ham_score": 0.87
+  },
+  {
+    "text": "Thanks for your subscription to Ringtone UK your mobile will be charged \u00a35/month Please confirm by replying YES or NO. If you reply NO you will not be charged",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Thanks for your subscription to Ringtone UK your mobile will be charged \u00a35/month Please confirm by replying YES or NO. If you reply NO you will not be charged",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0027,
+    "ham_score": 0.9973
+  },
+  {
+    "text": "Thanks for your subscription to Ringtone UK your mobile will be charged \u00a35/month Please confirm by replying YES or NO. If you reply NO you will not be charged",
+    "is_spam": false,
+    "confidence": 0.99,
+    "spam_score": 0.0,
+    "ham_score": 1.0
+  },
+  {
+    "text": "For fear of fainting with the of all that housework you just did? Quick have a cuppa",
+    "is_spam": false,
+    "confidence": 0.9261,
+    "spam_score": 0.0739,
+    "ham_score": 0.9261
+  },
+  {
+    "text": "07732584351 - Rodger Burns - MSG = We tried to call you re your reply to our sms for a free nokia mobile + free camcorder. Please call now 08000930705 for delivery tomorrow",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "XXXMobileMovieClub: To use your credit, click the WAP link in the next txt message or click here>> http://wap. xxxmobilemovieclub.com?n=QJKGIGHJJGCBL",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Oh k...i'm watching here:)",
+    "is_spam": false,
+    "confidence": 0.7504,
+    "spam_score": 0.2496,
+    "ham_score": 0.7504
+  },
+  {
+    "text": "England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/\u00fa1.20 POBOXox36504W45WQ 16+",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 0.9996,
+    "ham_score": 0.0004
+  },
+  {
+    "text": "Did you hear about the new \"Divorce Barbie\"? It comes with all of Ken's stuff!",
     "is_spam": true,
     "confidence": 0.99,
     "spam_score": 1.0,
