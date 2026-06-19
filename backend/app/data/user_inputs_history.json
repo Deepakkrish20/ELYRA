@@ -1,12 +1,5 @@
 [
   {
-    "text": "Claim your FREE prize money now!",
-    "is_spam": true,
-    "confidence": 0.99,
-    "spam_score": 1.0,
-    "ham_score": 0.0
-  },
-  {
     "text": "Lol your always so convincing.",
     "is_spam": false,
     "confidence": 0.85,
@@ -694,6 +687,13 @@
   },
   {
     "text": "Did you hear about the new \"Divorce Barbie\"? It comes with all of Ken's stuff!",
+    "is_spam": true,
+    "confidence": 0.99,
+    "spam_score": 1.0,
+    "ham_score": 0.0
+  },
+  {
+    "text": "Congrats! 1 year special cinema pass for 2 is yours. call 09061209465 now! C Suprman V, Matrix3, StarWars3, etc all 4 FREE! bx420-ip4-5we. 150pm. Dont miss out!",
     "is_spam": true,
     "confidence": 0.99,
     "spam_score": 1.0,

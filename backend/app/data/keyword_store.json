@@ -1,5 +1,5 @@
 {
-  "total_spam_messages": 12,
+  "total_spam_messages": 13,
   "total_ham_messages": 5,
   "keyword_counts": {
     "share": {
@@ -11,7 +11,7 @@
       "ham_count": 0
     },
     "now": {
-      "spam_count": 2,
+      "spam_count": 3,
       "ham_count": 0
     },
     "please": {
@@ -95,7 +95,7 @@
       "ham_count": 0
     },
     "miss": {
-      "spam_count": 2,
+      "spam_count": 3,
       "ham_count": 0
     },
     "team": {
@@ -119,7 +119,7 @@
       "ham_count": 0
     },
     "dont": {
-      "spam_count": 2,
+      "spam_count": 3,
       "ham_count": 0
     },
     "scotland": {
@@ -251,7 +251,7 @@
       "ham_count": 0
     },
     "free": {
-      "spam_count": 1,
+      "spam_count": 2,
       "ham_count": 0
     },
     "sms": {
@@ -263,7 +263,7 @@
       "ham_count": 0
     },
     "call": {
-      "spam_count": 1,
+      "spam_count": 2,
       "ham_count": 0
     },
     "tomorrow": {
@@ -351,6 +351,34 @@
       "ham_count": 0
     },
     "hear": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "suprman": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "congrats": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "cinema": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "year": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "etc": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "pass": {
+      "spam_count": 1,
+      "ham_count": 0
+    },
+    "special": {
       "spam_count": 1,
       "ham_count": 0
     }
