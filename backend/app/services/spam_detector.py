@@ -436,7 +436,7 @@ IMPERATIVE_SENSITIVE = re.compile(
     r"\b(share|send|give|provide|enter|submit|tell|reveal|disclose|"
     r"confirm|verify|type|paste|forward)\b.{0,60}"
     r"\b(otp|pin|password|passcode|code|cvv|ssn|details|credentials|"
-    r"account|information|card|number|secret|private|token)\b",
+    r"account|information|card|number|secret|private|token|otp)\b",
     re.IGNORECASE | re.DOTALL
 )
 
